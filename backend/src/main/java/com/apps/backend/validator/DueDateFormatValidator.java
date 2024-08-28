@@ -13,6 +13,9 @@ public class DueDateFormatValidator implements ConstraintValidator<DueDateValida
 
     @Override
     public boolean isValid(LocalDate localDate, ConstraintValidatorContext constraintValidatorContext) {
-        return true;
+        if(LocalDate.now().compareTo(localDate) <= 0){
+            return true;
+        }
+        return false;
     }
 }

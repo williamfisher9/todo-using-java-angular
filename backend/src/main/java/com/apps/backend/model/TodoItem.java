@@ -1,9 +1,9 @@
 package com.apps.backend.model;
 
-import com.apps.backend.enums.Status;
+import com.apps.backend.validator.DueDateValidator;
+import com.apps.backend.validator.StatusValidator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.validation.annotation.Validated;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,11 +20,9 @@ public class TodoItem implements Serializable {
     private long id;
 
     @Column(name = "details")
-    @NotBlank(message = "Details field is required.")
     private String details;
 
-    @Enumerated(value = EnumType.ORDINAL)
-    private Status status;
+    private int status;
 
     @Column(name = "due_date")
     private LocalDate dueDate;
@@ -32,7 +30,7 @@ public class TodoItem implements Serializable {
     public TodoItem() {
     }
 
-    public TodoItem(String details, Status status, LocalDate dueDate) {
+    public TodoItem(String details, int status, LocalDate dueDate) {
         this.details = details;
         this.status = status;
         this.dueDate = dueDate;
@@ -54,11 +52,11 @@ public class TodoItem implements Serializable {
         this.details = details;
     }
 
-    public Status getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -75,7 +73,7 @@ public class TodoItem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TodoItem item = (TodoItem) o;
-        return id == item.id && Objects.equals(details, item.details) && status == item.status && Objects.equals(dueDate, item.dueDate);
+        return id == item.id && status == item.status && Objects.equals(details, item.details) && Objects.equals(dueDate, item.dueDate);
     }
 
     @Override

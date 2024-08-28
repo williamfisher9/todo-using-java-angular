@@ -9,12 +9,17 @@ public enum Status {
     private final String name;
     private final int code;
 
-    private final Map<Integer, String> codeNamePair = new HashMap<>();
+    private static final Map<Integer, String> codeNamePair = new HashMap<>();
+
+    static {
+        for(Status x : values()){
+            codeNamePair.put(x.code, x.name);
+        }
+    }
 
     private Status(String name, int code){
         this.code = code;
         this.name = name;
-        codeNamePair.put(code, name);
     }
 
     public String getName() {
@@ -25,7 +30,7 @@ public enum Status {
         return code;
     }
 
-    public String getNameByCode(int code){
+    public static String getNameByCode(int code){
         return codeNamePair.get(code);
     }
 }

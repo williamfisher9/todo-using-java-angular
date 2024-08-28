@@ -1,21 +1,22 @@
 package com.apps.backend.dto;
 
-import com.apps.backend.enums.Status;
 import com.apps.backend.validator.DueDateValidator;
+import com.apps.backend.validator.StatusValidator;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
-public class TodoItemDTORequest {
-    @NotBlank(message = "Details field is required")
+public class Request {
+    @NotBlank(message = "Details field is required.")
     private String details;
 
-    private Status status;
+    @StatusValidator
+    private int status;
 
-    @DueDateValidator(message = "invalid value")
+    @DueDateValidator
     private LocalDate dueDate;
 
-    public TodoItemDTORequest() {
+    public Request() {
     }
 
     public String getDetails() {
@@ -26,11 +27,11 @@ public class TodoItemDTORequest {
         this.details = details;
     }
 
-    public Status getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
